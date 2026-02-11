@@ -3,6 +3,9 @@
 * {
   font-family: "Funnel Sans", sans-serif;
 }
+input {
+  outline: none;
+}
 /* User Info Section Design */
 #user-info {
   min-height: 100vh;
@@ -26,7 +29,7 @@
 }
 /* Animation Applies For Login Section */
 .input-div {
-    animation: scale 1s linear forwards;
+  animation: scale 1s linear forwards;
 }
 /* Warning Messages */
 .name-warning,
@@ -44,10 +47,39 @@
 }
 /* Animation For Login Section */
 @keyframes scale {
-    from {
-        transform: scale(0);
-    }
-    to {
-        transform: scale(1);
-    }
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+/* Animation For Add-Activity Pop-Up */
+@keyframes right {
+  from {
+    right: -400px;
+  }
+  to {
+    right: 0;
+  }
+}
+.add-right-animation {
+  animation:  right 0.5s linear forwards;
+}
+/* Main App Design */
+.app {
+  display: none;
+}
+#add-inputs {
+  backdrop-filter: blur(30px);
+  display: none;
+}
+#add-activity-popup {
+  transition: 0.6s ease-in;
+}
+.activity-warning {
+  display: none;
+}
+.duration-warning {
+  display: none;
 }
