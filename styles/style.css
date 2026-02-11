@@ -1,0 +1,5 @@
+@import "tailwindcss";
+/* Font Family Select */
+*{
+    font-family: "Funnel Sans", sans-serif;
+}
