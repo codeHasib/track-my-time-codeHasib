@@ -1,5 +1,53 @@
 @import "tailwindcss";
 /* Font Family Select */
-*{
-    font-family: "Funnel Sans", sans-serif;
+* {
+  font-family: "Funnel Sans", sans-serif;
+}
+/* User Info Section Design */
+#user-info {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+#user-info .greetings {
+  max-width: 90%;
+  padding: 20px 10px;
+  border-radius: 15px;
+}
+/* Animation Applies For Greetings */
+#user-info .greetings h2 {
+  animation: translateX 0.4s linear forwards;
+}
+#user-info .greetings h1 {
+  animation: translateX 0.8s linear forwards;
+}
+/* Animation Applies For Login Section */
+.input-div {
+    animation: scale 1s linear forwards;
+}
+/* Warning Messages */
+.name-warning,
+.option-warning {
+  display: none;
+}
+/* Animation for Greeting Text */
+@keyframes translateX {
+  0% {
+    transform: translateX(-500px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+/* Animation For Login Section */
+@keyframes scale {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
 }

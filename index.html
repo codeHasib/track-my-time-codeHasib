@@ -26,7 +26,50 @@
   </head>
   <body>
     <!-- User Info Section -->
-    <section>
+    <section id="user-info">
+        <div class="greetings space-y-1">
+            <h2 class="text-2xl font-bold text-center">
+                Hey There
+            </h2>
+            <h1 class="text-3xl font-light text-center mb-5">
+                Track how you spend your time today.
+            </h1>
+            <div class="input-div flex flex-col bg-linear-to-b from-[#810576] to-[#FCC1CF] text-white py-8 px-6 rounded-2xl justify-center items-start gap-3">
+                <h3 class="text-[20px] font-bold">Enter Name:</h3>
+                <p class="name-warning font-extralight text-black">Please enter a valid name!</p>
+                <input type="text" id="username" placeholder="Enter your name" class="bg-white inline-block py-2 px-1.5 rounded-xl placeholder:text-black text-black outline-none w-full">
+                <h3 class="text-[20px] font-bold">Select How You Want To Improve</h3>
+                <p class="option-warning font-extralight text-black">Please select a option!</p>
+                <select id="goal-select" class="bg-white inline-block py-2 px-1.5 rounded-xl text-black font-semibold outline-none w-[80%] mb-5">
+                    <option value="default" selected disabled>
+                        Select your goal
+                    </option>
+                    <option value="productive">
+                        Be more productive
+                    </option>
+                    <option value="screenTime">
+                        Reduce screen time
+                    </option>
+                    <option value="discipline">
+                        Improve discipline
+                    </option>
+                    <option value="track">
+                        Just Tracking
+                    </option>
+                </select>
+                <button id="user-btn" class="bg-white py-3 px-2 self-center text-black font-bold rounded-xl">
+                    Start Tracking
+                </button>
+            </div>
+        </div>
     </section>
+
+    <!-- Main App -->
+     <header>
+
+     </header>
+
+     <!-- JS Connect -->
+      <script src="./scripts/script.js"></script>
   </body>
 </html>
