@@ -1,6 +1,6 @@
 let userInfo = {
-  name: "" || localStorage.getItem("name"),
-  goal: "" || localStorage.getItem("goal")
+  name: localStorage.getItem("name"),
+  goal: localStorage.getItem("goal")
 };
 const setName = () => localStorage.setItem("name", userInfo.name);
 const setGoal = () => localStorage.setItem("goal", userInfo.goal);
