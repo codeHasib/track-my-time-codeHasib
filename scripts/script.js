@@ -32,6 +32,7 @@ const addActivityDurationMinutes = document.querySelector(
 const addActivitySubmitBtn = document.querySelector("#log-activity");
 const addActivityPopUp = document.querySelector("#add-activity-popup");
 const activityWarningMsg = document.querySelector(".activity-warning");
+const activityAddedDone = document.querySelector(".activity-done");
 const durationWarningMsg = document.querySelector(".duration-warning");
 // Add Activity Functions
 function getActivityData() {
@@ -48,8 +49,9 @@ function getActivityData() {
   const totalDurationMinutes = durationHoursValue * 60 + durationMinutesValue;
   activityWarningMsg.style.display = "none";
   durationWarningMsg.style.display = "none";
+  activityAddedDone.style.display = "none";
   if (
-    cleanedActivityInputValue.length > 3 &&
+    cleanedActivityInputValue.length > 0 &&
     totalDurationMinutes &&
     activityCategoryValue
   ) {
@@ -61,6 +63,7 @@ function getActivityData() {
       addActivityDurationHours.value = "";
       addActivityDurationMinutes.value = "";
       durationWarningMsg.style.display = "none";
+      activityAddedDone.style.display = "block";
       activityObj.id++;
       activityObj.activityName = cleanedActivityInputValue;
       activityObj.category = activityCategoryValue;
@@ -75,6 +78,8 @@ function getActivityData() {
 function showAddActivitySection() {
   addActivityDisplay.style.display = "flex";
   addActivityPopUp.classList.add("add-right-animation");
+  activityAddedDone.style.display = "none";
+  activityWarningMsg.style.display = "none";
 }
 function hideAddActivitySection() {
   addActivityDisplay.style.display = "none";

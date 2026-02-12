@@ -36,7 +36,8 @@ input {
 }
 /* Warning Messages */
 .name-warning,
-.option-warning {
+.option-warning,
+.activity-done {
   display: none;
 }
 /* Animation for Greeting Text */
