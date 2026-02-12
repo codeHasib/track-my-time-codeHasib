@@ -3,6 +3,9 @@
 * {
   font-family: "Funnel Sans", sans-serif;
 }
+button {
+  cursor: pointer;
+}
 input {
   outline: none;
 }
@@ -134,4 +137,16 @@ input {
 #summary-parent.open {
   max-height: 1000px;
   padding: 20px 15px;
+}
+/* Hover Effects For All The Section Open Button */
+#add-activity,
+#activity-history,
+#activity-summary {
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+#add-activity:hover,
+#activity-history:hover,
+#activity-summary:hover {
+  box-shadow: 0px 0px 10px purple;
 }
