@@ -73,6 +73,7 @@ input {
 #add-inputs {
   backdrop-filter: blur(30px);
   display: none;
+  z-index: 9999;
 }
 #add-activity-popup {
   transition: 0.6s ease-in;
@@ -82,4 +83,37 @@ input {
 }
 .duration-warning {
   display: none;
+}
+/* History Activity Styles */
+#history-parent {
+  overflow: hidden;
+  max-height: 0px;
+  transition: max-height 0.6s ease-in-out;
+}
+#history-parent.open {
+  max-height: 500px;
+  overflow: scroll;
+}
+.history-div div {
+  background-color: blueviolet;
+  border-radius: 24px;
+  padding: 20px;
+  color: white;
+  margin: 20px 0;
+}
+.history-div div h2 {
+  font-size: 24px;
+  font-weight: bolder;
+}
+.history-div div h3 {
+  font-size: 20px;
+  font-weight: bold;
+}
+.history-div div h4 {
+  font-size: 18px;
+  font-weight: bold;
+}
+.history-div div p {
+  font-size: 16px;
+  font-weight: lighter;
 }

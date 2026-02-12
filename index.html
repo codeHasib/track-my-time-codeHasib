@@ -70,6 +70,7 @@
     </section>
 
     <!-- Main App -->
+    <!-- Main App Header Section -->
     <header class="app">
       <div
         class="flex items-center justify-between py-4 px-3 bg-linear-to-b from-[#F756AA] to-[#F75672]"
@@ -87,10 +88,11 @@
         </div>
       </div>
     </header>
-
+    <!-- Dashboard Section -->
     <main
       class="app bg-linear-to-b from-[#1CDCE8] to-[#BB77ED] min-h-screen py-10 px-7"
     >
+      <!-- Add Activity Section -->
       <section>
         <div
           id="add-activity"
@@ -117,7 +119,9 @@
             >
               <i class="fa-solid fa-xmark"></i>
             </div>
-            <p class="activity-warning font-bold text-xl text-center mt-5 text-red-500">
+            <p
+              class="activity-warning font-bold text-xl text-center mt-5 text-red-500"
+            >
               Please fill out all the info
             </p>
             <div>
@@ -153,17 +157,17 @@
               </p>
               <div class="flex items-center justify-center gap-3 flex-wrap">
                 <input
-                type="number" placeholder="HOURS"
-                id="activity-duration-hours"
-                class="mt-2 bg-[#F75672] py-2 px-4 max-w-[110px] placeholder:text-center placeholder:text-white inline-block font-bold rounded-4xl text-center text-white"
+                  type="number"
+                  placeholder="HOURS"
+                  id="activity-duration-hours"
+                  class="mt-2 bg-[#F75672] py-2 px-4 max-w-[110px] placeholder:text-center placeholder:text-white inline-block font-bold rounded-4xl text-center text-white"
                 />
-                <p class="text-2xl font-extrabold">
-                  :
-                </p>
+                <p class="text-2xl font-extrabold">:</p>
                 <input
-                type="number" placeholder="MINUTES"
-                id="activity-duration-minutes"
-                class="mt-2 bg-[#F75672] py-2 px-4 max-w-[110px] placeholder:text-center placeholder:text-white inline-block font-bold rounded-4xl text-center text-white"
+                  type="number"
+                  placeholder="MINUTES"
+                  id="activity-duration-minutes"
+                  class="mt-2 bg-[#F75672] py-2 px-4 max-w-[110px] placeholder:text-center placeholder:text-white inline-block font-bold rounded-4xl text-center text-white"
                 />
               </div>
             </div>
@@ -176,6 +180,34 @@
           </div>
         </div>
       </section>
+
+      <!-- Activity List -->
+      <section>
+        <div
+          id="activity-history"
+          class="flex items-center justify-center gap-4 bg-[#BB77ED] py-6 px-3 rounded-3xl mt-10"
+        >
+          <h2 class="text-3xl font-extrabold">Activity History</h2>
+          <span
+            class="flex justify-center items-center h-10 w-10 rounded-[50%] bg-[#1CDCE8]"
+          >
+            <i class="fas fa-history text-2xl text-purple-500"></i>
+          </span>
+        </div>
+        <div
+          id="history-parent"
+          class="w-full bg-purple-50 mt-2 overflow-hidden rounded-3xl relative"
+        >
+          <div
+            id="close-history"
+            class="h-10 w-10 rounded-[100vw] bg-[#F75672] absolute top-5 right-4 flex items-center justify-center"
+          >
+            <i class="fa-solid fa-xmark text-2xl text-white"></i>
+          </div>
+          <div class="history-div py-15 px-5"></div>
+        </div>
+      </section>
+      <section class="h-[400px] w-full bg-amber-500 mt-10"></section>
     </main>
 
     <!-- JS Connect -->

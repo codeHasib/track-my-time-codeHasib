@@ -5,7 +5,8 @@ let userInfo = {
 let appState = JSON.parse(localStorage.getItem("appState")) || [];
 const setName = () => localStorage.setItem("name", userInfo.name);
 const setGoal = () => localStorage.setItem("goal", userInfo.goal);
-const setAppState = () => localStorage.setItem("appState", JSON.stringify(appState));
+const setAppState = () =>
+  localStorage.setItem("appState", JSON.stringify(appState));
 // User Info DOMS
 const userInfoPage = document.querySelector("#user-info");
 const userNameInput = document.querySelector("#username");
@@ -22,8 +23,12 @@ const addActivityDisplay = document.querySelector("#add-inputs");
 const addActivityCloseBtn = document.querySelector("#add-activity-close");
 const addActivityInput = document.querySelector("#activity-input");
 const addActivityCategory = document.querySelector("#activity-category");
-const addActivityDurationHours = document.querySelector("#activity-duration-hours");
-const addActivityDurationMinutes = document.querySelector("#activity-duration-minutes");
+const addActivityDurationHours = document.querySelector(
+  "#activity-duration-hours",
+);
+const addActivityDurationMinutes = document.querySelector(
+  "#activity-duration-minutes",
+);
 const addActivitySubmitBtn = document.querySelector("#log-activity");
 const addActivityPopUp = document.querySelector("#add-activity-popup");
 const activityWarningMsg = document.querySelector(".activity-warning");
@@ -40,11 +45,15 @@ function getActivityData() {
   const activityCategoryValue = addActivityCategory.value;
   const durationHoursValue = parseInt(addActivityDurationHours.value) || 0;
   const durationMinutesValue = parseInt(addActivityDurationMinutes.value) || 0;
-  const totalDurationMinutes = (durationHoursValue * 60) + durationMinutesValue;
+  const totalDurationMinutes = durationHoursValue * 60 + durationMinutesValue;
   activityWarningMsg.style.display = "none";
   durationWarningMsg.style.display = "none";
-  if(cleanedActivityInputValue.length > 3 && totalDurationMinutes && activityCategoryValue) {
-    if(totalDurationMinutes > 1440) {
+  if (
+    cleanedActivityInputValue.length > 3 &&
+    totalDurationMinutes &&
+    activityCategoryValue
+  ) {
+    if (totalDurationMinutes > 1440) {
       durationWarningMsg.style.display = "block";
     } else {
       addActivityInput.value = "";
@@ -62,23 +71,24 @@ function getActivityData() {
   } else {
     activityWarningMsg.style.display = "block";
   }
-};
+}
 function showAddActivitySection() {
   addActivityDisplay.style.display = "flex";
   addActivityPopUp.classList.add("add-right-animation");
-};
+}
 function hideAddActivitySection() {
   addActivityDisplay.style.display = "none";
   addActivityPopUp.style.right = "400px";
 }
-addActivityBtn.addEventListener("click", ()=> {
+addActivityBtn.addEventListener("click", () => {
   showAddActivitySection();
 });
-addActivityCloseBtn.addEventListener("click", ()=> {
+addActivityCloseBtn.addEventListener("click", () => {
   hideAddActivitySection();
 });
-addActivitySubmitBtn.addEventListener("click", ()=> {
+addActivitySubmitBtn.addEventListener("click", () => {
   getActivityData();
+  renderHistory(appState);
 });
 // User Info Validation And Store Data
 function getData() {
@@ -130,5 +140,46 @@ function renderUI(obj) {
 }
 const addButton = document.querySelector("#add-activity");
 const inputs = document.querySelector("#add-inputs");
-addButton.addEventListener("click", ()=> {
+addButton.addEventListener("click", () => {});
+// Activity History DOMS & Functions
+const activityHistoryBtn = document.querySelector("#activity-history");
+const historyDivParent = document.querySelector("#history-parent");
+const historyDisplay = document.querySelector(".history-div");
+const closeHistory = document.querySelector("#close-history");
+activityHistoryBtn.addEventListener("click", () => {
+  historyDivParent.classList.add("open");
 });
+closeHistory.addEventListener("click", () => {
+  historyDivParent.classList.remove("open");
+});
+function renderHistory(arr) {
+  historyDisplay.innerHTML = "";
+  if (arr.length > 0) {
+    arr.forEach((activityObj) => {
+      let div = document.createElement("div");
+      let h2 = document.createElement("h2");
+      h2.textContent = `Activity: ${activityObj.activityName}`;
+      div.append(h2);
+      let h3 = document.createElement("h3");
+      h3.textContent = `Category: ${activityObj.category}`;
+      div.append(h3);
+      let hours = Math.trunc(activityObj.timeInMinutes / 60);
+      let minutes = activityObj.timeInMinutes % 60;
+      let h4 = document.createElement("h4");
+      h4.textContent = `Duration: ${hours}hrs ${minutes}mins.`;
+      div.append(h4);
+      historyDisplay.append(div);
+    });
+  } else {
+    let h2 = document.createElement("h2");
+    h2.textContent = "No activity history";
+    h2.style.fontSize = "24px";
+    h2.style.color = "black";
+    h2.style.fontWeight = "bolder";
+    h2.style.marginTop = "20px";
+    h2.style.textAlign = "center";
+    historyDisplay.append(h2);
+  }
+}
+
+renderHistory(appState);
