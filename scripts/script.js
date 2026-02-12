@@ -197,6 +197,11 @@ renderHistory(appState);
 function sortHistory() {
   const filteredArr = [];
   const query = sortHistoryInput.value;
+  if (query === "all") {
+    appState.forEach(obj=> {
+      filteredArr.push(obj);
+    });
+  };
   appState.forEach((obj) => {
     if (query === obj.category) {
       filteredArr.push(obj);
