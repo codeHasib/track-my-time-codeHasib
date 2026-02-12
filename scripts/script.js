@@ -90,6 +90,10 @@ addActivityBtn.addEventListener("click", () => {
 });
 addActivityCloseBtn.addEventListener("click", () => {
   hideAddActivitySection();
+  addActivityInput.value = "";
+  addActivityCategory.value = "default";
+  addActivityDurationHours.value = "";
+  addActivityDurationMinutes.value = "";
 });
 addActivitySubmitBtn.addEventListener("click", () => {
   getActivityData();
@@ -154,11 +158,11 @@ const activityHistoryBtn = document.querySelector("#activity-history");
 const historyDivParent = document.querySelector("#history-parent");
 const historyDisplay = document.querySelector(".history-div");
 const closeHistory = document.querySelector("#close-history");
+const sortHistoryInput = document.querySelector("#sort-activity-history");
 activityHistoryBtn.addEventListener("click", () => {
   historyDivParent.classList.toggle("open");
-});
-closeHistory.addEventListener("click", () => {
-  historyDivParent.classList.remove("open");
+  sortHistoryInput.value = "default";
+  renderHistory(appState);
 });
 function renderHistory(arr) {
   historyDisplay.innerHTML = "";
@@ -190,6 +194,23 @@ function renderHistory(arr) {
   }
 }
 renderHistory(appState);
+function sortHistory() {
+  const filteredArr = [];
+  const query = sortHistoryInput.value;
+  appState.forEach((obj) => {
+    if (query === obj.category) {
+      filteredArr.push(obj);
+    }
+  });
+  renderHistory(filteredArr);
+}
+sortHistoryInput.addEventListener("change", () => {
+  sortHistory();
+});
+closeHistory.addEventListener("click", () => {
+  historyDivParent.classList.remove("open");
+  sortHistoryInput.value = "default";
+});
 // Summary DOMS & Functions
 const summaryBtn = document.querySelector("#activity-summary");
 const summaryDisplay = document.querySelector("#summary-parent");
@@ -320,6 +341,5 @@ function summarizeTime(arr) {
   else if (restTime === minTime) leastTimeDisplay.textContent = "Rest";
   else if (socialTime === minTime)
     leastTimeDisplay.textContent = "Social Media";
-  
 }
 summarizeTime(appState);
