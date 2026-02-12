@@ -7,6 +7,23 @@ const setName = () => localStorage.setItem("name", userInfo.name);
 const setGoal = () => localStorage.setItem("goal", userInfo.goal);
 const setAppState = () =>
   localStorage.setItem("appState", JSON.stringify(appState));
+function getNewDate() {
+  return new Date().toLocaleDateString().split("/").join("-");
+}
+getNewDate();
+const newDate = getNewDate();
+// Summarization Function
+function newDaySummarize() {
+  const filteredArr = [];
+  if (appState.length > 0) {
+    appState.forEach((obj) => {
+      if (newDate === obj.date) {
+        filteredArr.push(obj);
+      }
+    });
+  }
+  return filteredArr;
+}
 // User Info DOMS
 const userInfoPage = document.querySelector("#user-info");
 const userNameInput = document.querySelector("#username");
@@ -37,7 +54,7 @@ const durationWarningMsg = document.querySelector(".duration-warning");
 // Add Activity Functions
 function getActivityData() {
   const activityObj = {
-    id: 0,
+    date: "",
     activityName: "",
     category: "",
     timeInMinutes: 0,
@@ -64,7 +81,7 @@ function getActivityData() {
       addActivityDurationMinutes.value = "";
       durationWarningMsg.style.display = "none";
       activityAddedDone.style.display = "block";
-      activityObj.id++;
+      activityObj.date = newDate;
       activityObj.activityName = cleanedActivityInputValue;
       activityObj.category = activityCategoryValue;
       activityObj.timeInMinutes = totalDurationMinutes;
@@ -98,9 +115,9 @@ addActivityCloseBtn.addEventListener("click", () => {
 addActivitySubmitBtn.addEventListener("click", () => {
   getActivityData();
   renderHistory(appState);
-  renderSummaryHeaderUI(userInfo, appState);
-  renderSummaryAllCategoryTime(appState);
-  summarizeTime(appState);
+  renderSummaryHeaderUI(userInfo, newDaySummarize());
+  renderSummaryAllCategoryTime(newDaySummarize());
+  summarizeTime(newDaySummarize());
 });
 // User Info Validation And Store Data
 function getData() {
@@ -159,8 +176,10 @@ const historyDivParent = document.querySelector("#history-parent");
 const historyDisplay = document.querySelector(".history-div");
 const closeHistory = document.querySelector("#close-history");
 const sortHistoryInput = document.querySelector("#sort-activity-history");
+const sortDateInput = document.querySelector("#history-date");
 activityHistoryBtn.addEventListener("click", () => {
   historyDivParent.classList.toggle("open");
+  sortDateInput.value = "";
   sortHistoryInput.value = "default";
   renderHistory(appState);
 });
@@ -180,6 +199,9 @@ function renderHistory(arr) {
       let h4 = document.createElement("h4");
       h4.textContent = `Duration: ${hours}hrs ${minutes}mins.`;
       div.append(h4);
+      let p = document.createElement("h5");
+      p.textContent = `Date: ${activityObj.date}`;
+      div.append(p);
       historyDisplay.append(div);
     });
   } else {
@@ -198,10 +220,10 @@ function sortHistory() {
   const filteredArr = [];
   const query = sortHistoryInput.value;
   if (query === "all") {
-    appState.forEach(obj=> {
+    appState.forEach((obj) => {
       filteredArr.push(obj);
     });
-  };
+  }
   appState.forEach((obj) => {
     if (query === obj.category) {
       filteredArr.push(obj);
@@ -209,6 +231,23 @@ function sortHistory() {
   });
   renderHistory(filteredArr);
 }
+function sortHistoryByDate() {
+  const dateInputValueArr = sortDateInput.value.split("-");
+  const formatInputValue = dateInputValueArr.reverse().join("-");
+  const filteredArr = [];
+
+  if (formatInputValue.length > 0) {
+    appState.forEach((obj) => {
+      if (obj.date === formatInputValue) filteredArr.push(obj);
+    });
+    renderHistory(filteredArr);
+  } else {
+    renderHistory(appState);
+  }
+}
+sortDateInput.addEventListener("change", () => {
+  sortHistoryByDate();
+});
 sortHistoryInput.addEventListener("change", () => {
   sortHistory();
 });
@@ -220,11 +259,20 @@ closeHistory.addEventListener("click", () => {
 const summaryBtn = document.querySelector("#activity-summary");
 const summaryDisplay = document.querySelector("#summary-parent");
 const closeSummaryDisplay = document.querySelector("#close-summary");
+const summaryDateInput = document.querySelector("#summary-date");
 summaryBtn.addEventListener("click", () => {
   summaryDisplay.classList.toggle("open");
+  summaryDateInput.value = "";
+  renderSummaryHeaderUI(userInfo, newDaySummarize());
+  renderSummaryAllCategoryTime(newDaySummarize());
+  summarizeTime(newDaySummarize());
 });
 closeSummaryDisplay.addEventListener("click", () => {
   summaryDisplay.classList.remove("open");
+  summaryDateInput.value = "";
+  renderSummaryHeaderUI(userInfo, newDaySummarize());
+  renderSummaryAllCategoryTime(newDaySummarize());
+  summarizeTime(newDaySummarize());
 });
 const summaryGoalDisplay = document.querySelector("#summary-goal");
 const summaryTotalTimeDisplay = document.querySelector("#summary-total-time");
@@ -243,7 +291,7 @@ function renderSummaryHeaderUI(obj, arr) {
     summaryGoalDisplay.textContent = "No goal";
   }
 }
-renderSummaryHeaderUI(userInfo, appState);
+renderSummaryHeaderUI(userInfo, newDaySummarize());
 const productiveTimeDisplay = document.querySelector(
   "#summary-productive-time",
 );
@@ -263,7 +311,7 @@ function renderSummaryAllCategoryTime(arr) {
   let socialTime = 0;
   if (arr.length > 0) {
     arr.forEach((obj) => {
-      if (obj.category === "Productive") {
+      if (obj.category === "Productivity") {
         productiveTime += obj.timeInMinutes;
       } else if (obj.category === "Study") {
         studyTime += obj.timeInMinutes;
@@ -293,7 +341,7 @@ function mins(num) {
   let minutes = num % 60;
   return minutes;
 }
-renderSummaryAllCategoryTime(appState);
+renderSummaryAllCategoryTime(newDaySummarize());
 const topTimeDisplay = document.querySelector("#summary-top");
 const leastTimeDisplay = document.querySelector("#summary-least");
 function summarizeTime(arr) {
@@ -305,7 +353,7 @@ function summarizeTime(arr) {
   let socialTime = 0;
   if (arr.length > 0) {
     arr.forEach((obj) => {
-      if (obj.category === "Productive") {
+      if (obj.category === "Productivity") {
         productiveTime += obj.timeInMinutes;
       } else if (obj.category === "Study") {
         studyTime += obj.timeInMinutes;
@@ -347,4 +395,26 @@ function summarizeTime(arr) {
   else if (socialTime === minTime)
     leastTimeDisplay.textContent = "Social Media";
 }
-summarizeTime(appState);
+summarizeTime(newDaySummarize());
+function sortSummaryByDate() {
+  const dateInputValueArr = summaryDateInput.value.split("-");
+  const formatInputValue = dateInputValueArr.reverse().join("-");
+  const filteredArr = [];
+
+  if (formatInputValue.length > 0) {
+    appState.forEach((obj) => {
+      if (formatInputValue === obj.date) filteredArr.push(obj);
+      console.log(formatInputValue);
+    });
+    renderSummaryAllCategoryTime(filteredArr);
+    renderSummaryHeaderUI(userInfo, filteredArr);
+    summarizeTime(filteredArr);
+  } else {
+    renderSummaryAllCategoryTime(appState);
+    renderSummaryHeaderUI(userInfo, appState);
+    summarizeTime(appState);
+  }
+}
+summaryDateInput.addEventListener("change", () => {
+  sortSummaryByDate();
+});

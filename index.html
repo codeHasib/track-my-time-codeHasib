@@ -214,9 +214,21 @@
           >
             <i class="fa-solid fa-xmark text-2xl text-white"></i>
           </div>
-          <div class="my-5 max-w-[50%] mx-auto">
-            <select id="sort-activity-history" class="w-full p-3 bg-amber-200 rounded-2xl font-bold outline-none">
-              <option value="default" selected disabled>Sort By Category</option>
+          <div class="my-5 max-w-[200px] mx-auto">
+            <input
+              type="date"
+              id="history-date"
+              class="bg-red-400 py-2 px-4 w-full rounded-xl font-bold text-white"
+            />
+          </div>
+          <div class="my-5 max-w-[200px] mx-auto">
+            <select
+              id="sort-activity-history"
+              class="w-full p-3 bg-amber-200 rounded-2xl font-bold outline-none"
+            >
+              <option value="default" selected disabled>
+                Sort By Category
+              </option>
               <option value="Productivity">Productivity</option>
               <option value="Rest">Rest</option>
               <option value="Entertainment">Entertainment</option>
@@ -226,7 +238,7 @@
               <option value="all">All Activity</option>
             </select>
           </div>
-          <div class="history-div py-15 px-5"></div>
+          <div class="history-div py-2 px-5"></div>
         </div>
       </section>
 
@@ -251,6 +263,13 @@
             class="h-10 w-10 rounded-[100vw] bg-[#F75672] absolute top-5 right-4 flex items-center justify-center"
           >
             <i class="fa-solid fa-xmark text-2xl text-white"></i>
+          </div>
+          <div class="mt-10 max-w-[200px] mx-auto">
+            <input
+              type="date"
+              id="summary-date"
+              class="bg-red-400 py-2 px-4 w-full rounded-xl font-bold text-white"
+            />
           </div>
           <div
             class="flex justify-between pb-4 mb-4 border-b border-purple-400 mt-15 gap-3"
