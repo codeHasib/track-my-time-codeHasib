@@ -2,7 +2,7 @@ let userInfo = {
   name: localStorage.getItem("name"),
   goal: localStorage.getItem("goal"),
 };
-let appState = [] || JSON.parse(localStorage.getItem("appState"));
+let appState = JSON.parse(localStorage.getItem("appState")) || [];
 const setName = () => localStorage.setItem("name", userInfo.name);
 const setGoal = () => localStorage.setItem("goal", userInfo.goal);
 const setAppState = () => localStorage.setItem("appState", JSON.stringify(appState));
@@ -56,8 +56,8 @@ function getActivityData() {
       activityObj.activityName = cleanedActivityInputValue;
       activityObj.category = activityCategoryValue;
       activityObj.timeInMinutes = totalDurationMinutes;
-      setAppState();
       appState.push(activityObj);
+      setAppState();
     }
   } else {
     activityWarningMsg.style.display = "block";
