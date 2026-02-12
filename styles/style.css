@@ -92,7 +92,14 @@ input {
 }
 #history-parent.open {
   max-height: 500px;
-  overflow: scroll;
+  overflow-y: auto;
+}
+#history-parent.open::-webkit-scrollbar {
+  width: 6px;
+}
+#history-parent.open::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.3);
+  border-radius: 999px;
 }
 .history-div div {
   background-color: blueviolet;
