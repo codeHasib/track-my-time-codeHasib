@@ -89,6 +89,9 @@ addActivityCloseBtn.addEventListener("click", () => {
 addActivitySubmitBtn.addEventListener("click", () => {
   getActivityData();
   renderHistory(appState);
+  renderSummaryHeaderUI(userInfo, appState);
+  renderSummaryAllCategoryTime(appState);
+  summarizeTime(appState);
 });
 // User Info Validation And Store Data
 function getData() {
@@ -147,7 +150,7 @@ const historyDivParent = document.querySelector("#history-parent");
 const historyDisplay = document.querySelector(".history-div");
 const closeHistory = document.querySelector("#close-history");
 activityHistoryBtn.addEventListener("click", () => {
-  historyDivParent.classList.add("open");
+  historyDivParent.classList.toggle("open");
 });
 closeHistory.addEventListener("click", () => {
   historyDivParent.classList.remove("open");
@@ -181,5 +184,137 @@ function renderHistory(arr) {
     historyDisplay.append(h2);
   }
 }
-
 renderHistory(appState);
+// Summary DOMS & Functions
+const summaryBtn = document.querySelector("#activity-summary");
+const summaryDisplay = document.querySelector("#summary-parent");
+const closeSummaryDisplay = document.querySelector("#close-summary");
+summaryBtn.addEventListener("click", () => {
+  summaryDisplay.classList.toggle("open");
+});
+closeSummaryDisplay.addEventListener("click", () => {
+  summaryDisplay.classList.remove("open");
+});
+const summaryGoalDisplay = document.querySelector("#summary-goal");
+const summaryTotalTimeDisplay = document.querySelector("#summary-total-time");
+function renderSummaryHeaderUI(obj, arr) {
+  let totalMinutes = 0;
+  if (obj.goal && arr.length > 0) {
+    summaryGoalDisplay.textContent = obj.goal;
+    arr.forEach((obj) => {
+      totalMinutes += obj.timeInMinutes;
+    });
+    let totalHours = Math.trunc(totalMinutes / 60);
+    let minutes = totalMinutes % 60;
+    summaryTotalTimeDisplay.textContent = `${totalHours}hrs ${minutes}mins`;
+  } else {
+    summaryTotalTimeDisplay.textContent = "0hrs.";
+    summaryGoalDisplay.textContent = "No goal";
+  }
+}
+renderSummaryHeaderUI(userInfo, appState);
+const productiveTimeDisplay = document.querySelector(
+  "#summary-productive-time",
+);
+const studyTimeDisplay = document.querySelector("#summary-study-time");
+const workTimeDisplay = document.querySelector("#summary-work-time");
+const entertainmentDisplay = document.querySelector(
+  "#summary-entertainment-time",
+);
+const restTimeDisplay = document.querySelector("#summary-rest-time");
+const socialTimeDisplay = document.querySelector("#summary-social-time");
+function renderSummaryAllCategoryTime(arr) {
+  let productiveTime = 0;
+  let studyTime = 0;
+  let workTime = 0;
+  let entertainmentTime = 0;
+  let restTime = 0;
+  let socialTime = 0;
+  if (arr.length > 0) {
+    arr.forEach((obj) => {
+      if (obj.category === "Productive") {
+        productiveTime += obj.timeInMinutes;
+      } else if (obj.category === "Study") {
+        studyTime += obj.timeInMinutes;
+      } else if (obj.category === "Work") {
+        workTime += obj.timeInMinutes;
+      } else if (obj.category === "Entertainment") {
+        entertainmentTime += obj.timeInMinutes;
+      } else if (obj.category === "Rest") {
+        restTime += obj.timeInMinutes;
+      } else if (obj.category === "Social Media") {
+        socialTime += obj.timeInMinutes;
+      }
+    });
+  }
+  productiveTimeDisplay.textContent = `${hours(productiveTime)}hrs ${mins(productiveTime)}mins`;
+  studyTimeDisplay.textContent = `${hours(studyTime)}hrs ${mins(studyTime)}mins`;
+  workTimeDisplay.textContent = `${hours(workTime)}hrs ${mins(workTime)}mins`;
+  entertainmentDisplay.textContent = `${hours(entertainmentTime)}hrs ${mins(entertainmentTime)}mins`;
+  restTimeDisplay.textContent = `${hours(restTime)}hrs ${mins(restTime)}mins`;
+  socialTimeDisplay.textContent = `${hours(socialTime)}hrs ${mins(socialTime)}mins`;
+}
+function hours(num) {
+  let hours = Math.trunc(num / 60);
+  return hours;
+}
+function mins(num) {
+  let minutes = num % 60;
+  return minutes;
+}
+renderSummaryAllCategoryTime(appState);
+const topTimeDisplay = document.querySelector("#summary-top");
+const leastTimeDisplay = document.querySelector("#summary-least");
+function summarizeTime(arr) {
+  let productiveTime = 0;
+  let studyTime = 0;
+  let workTime = 0;
+  let entertainmentTime = 0;
+  let restTime = 0;
+  let socialTime = 0;
+  if (arr.length > 0) {
+    arr.forEach((obj) => {
+      if (obj.category === "Productive") {
+        productiveTime += obj.timeInMinutes;
+      } else if (obj.category === "Study") {
+        studyTime += obj.timeInMinutes;
+      } else if (obj.category === "Work") {
+        workTime += obj.timeInMinutes;
+      } else if (obj.category === "Entertainment") {
+        entertainmentTime += obj.timeInMinutes;
+      } else if (obj.category === "Rest") {
+        restTime += obj.timeInMinutes;
+      } else if (obj.category === "Social Media") {
+        socialTime += obj.timeInMinutes;
+      }
+    });
+  }
+  let allTimeArr = [
+    productiveTime,
+    studyTime,
+    workTime,
+    entertainmentTime,
+    restTime,
+    socialTime,
+  ];
+  let maxTime = Math.max(...allTimeArr);
+  let minTime = Math.min(...allTimeArr);
+  if (productiveTime === maxTime) topTimeDisplay.textContent = "Productivity";
+  else if (studyTime === maxTime) topTimeDisplay.textContent = "Study";
+  else if (workTime === maxTime) topTimeDisplay.textContent = "Work";
+  else if (entertainmentTime === maxTime)
+    topTimeDisplay.textContent = "Entertainment";
+  else if (restTime === maxTime) topTimeDisplay.textContent = "Rest";
+  else if (socialTime === maxTime) topTimeDisplay.textContent = "Social Media";
+
+  if (productiveTime === minTime) leastTimeDisplay.textContent = "Productivity";
+  else if (studyTime === minTime) leastTimeDisplay.textContent = "Study";
+  else if (workTime === minTime) leastTimeDisplay.textContent = "Work";
+  else if (entertainmentTime === minTime)
+    leastTimeDisplay.textContent = "Entertainment";
+  else if (restTime === minTime) leastTimeDisplay.textContent = "Rest";
+  else if (socialTime === minTime)
+    leastTimeDisplay.textContent = "Social Media";
+  
+}
+summarizeTime(appState);

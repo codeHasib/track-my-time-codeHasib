@@ -207,7 +207,93 @@
           <div class="history-div py-15 px-5"></div>
         </div>
       </section>
-      <section class="h-[400px] w-full bg-amber-500 mt-10"></section>
+
+      <!--  -->
+      <section>
+        <div
+          id="activity-summary"
+          class="flex items-center justify-center gap-1 bg-[#BB77ED] py-6 px-5 rounded-3xl mt-10"
+        >
+          <h2 class="text-3xl font-extrabold text-center">
+            Summary Panel (Today Overview)
+          </h2>
+          <span
+            class="flex justify-center items-center h-10 w-17 rounded-[100vw] bg-[#1CDCE8]"
+          >
+            <i class="fa-solid fa-table-list text-2xl text-purple-500"></i>
+          </span>
+        </div>
+        <div
+          id="summary-parent"
+          class="rounded-3xl bg-amber-300 mt-2 relative"
+        >
+          <div
+            id="close-summary"
+            class="h-10 w-10 rounded-[100vw] bg-[#F75672] absolute top-5 right-4 flex items-center justify-center"
+          >
+            <i class="fa-solid fa-xmark text-2xl text-white"></i>
+          </div>
+          <div
+            class="flex justify-between pb-4 mb-4 border-b border-purple-400 mt-15 gap-3"
+          >
+            <div class="py-3 px-4 rounded-3xl bg-purple-400 text-center">
+              <h3 class="font-extrabold text-white">
+                Total activity time: <span id="summary-total-time" class="block text-[20px] text-black"></span>
+              </h3>
+            </div>
+            <div class="py-3 px-4 rounded-3xl bg-purple-400 text-center">
+              <h3 class="font-extrabold text-white">
+                Your target: <span id="summary-goal" class="block text-[20px] text-black"></span>
+              </h3>
+            </div>
+          </div>
+          <div>
+            <h2 class="mb-4 text-center underline text-[26px] font-light">Time spent in each category</h2>
+            <h2 class="text-2xl font-bold mb-4">
+              Productive: <span id="summary-productive-time"></span>
+            </h2>
+            <h2 class="text-2xl font-bold mb-4">
+              Rest: <span id="summary-rest-time"></span>
+            </h2>
+            <h2 class="text-2xl font-bold mb-4">
+              Entertainment: <span id="summary-entertainment-time"></span>
+            </h2>
+            <h2 class="text-2xl font-bold mb-4">
+              Study: <span id="summary-study-time"></span>
+            </h2>
+            <h2 class="text-2xl font-bold mb-4">
+              Social Media: <span id="summary-social-time"></span>
+            </h2>
+            <h2 class="text-2xl font-bold mb-4">
+              Work: <span id="summary-work-time"></span>
+            </h2>
+          </div>
+          <div
+            class="text-center py-3 px-5 rounded-4xl bg-red-400 mb-5 text-xl font-extrabold text-white"
+          >
+            <h2>Top time consuming activity: <span id="summary-top" class="block"></span></h2>
+          </div>
+          <div
+            class="text-center py-3 px-5 rounded-4xl bg-green-400 mb-5 text-xl font-extrabold text-black"
+          >
+            <h2>
+              Least time consuming activity: <span id="summary-least" class="block"></span>
+            </h2>
+          </div>
+          <!-- Summary Suggestion will do it later dynamically -->
+          <!-- <h2 class="text-center mb-3 text-[18px] font-bold">
+            Suggestion for you
+          </h2>
+          <div>
+            <h2
+              id="summary-suggestion"
+              class="text-center py-3 px-5 rounded-4xl bg-pink-400 mb-5 text-xl font-extrabold text-black"
+            >
+              You are doing well keep it up like that way
+            </h2>
+          </div> -->
+        </div>
+      </section>
     </main>
 
     <!-- JS Connect -->
