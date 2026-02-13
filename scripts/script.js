@@ -380,22 +380,29 @@ function summarizeTime(arr) {
   ];
   let maxTime = Math.max(...allTimeArr);
   let minTime = Math.min(...allTimeArr);
-  if (productiveTime === maxTime) topTimeDisplay.textContent = "Productivity";
-  else if (studyTime === maxTime) topTimeDisplay.textContent = "Study";
-  else if (workTime === maxTime) topTimeDisplay.textContent = "Work";
-  else if (entertainmentTime === maxTime)
-    topTimeDisplay.textContent = "Entertainment";
-  else if (restTime === maxTime) topTimeDisplay.textContent = "Rest";
-  else if (socialTime === maxTime) topTimeDisplay.textContent = "Social Media";
+  if (arr.length > 0) {
+    if (productiveTime === maxTime) topTimeDisplay.textContent = "Productivity";
+    else if (studyTime === maxTime) topTimeDisplay.textContent = "Study";
+    else if (workTime === maxTime) topTimeDisplay.textContent = "Work";
+    else if (entertainmentTime === maxTime)
+      topTimeDisplay.textContent = "Entertainment";
+    else if (restTime === maxTime) topTimeDisplay.textContent = "Rest";
+    else if (socialTime === maxTime)
+      topTimeDisplay.textContent = "Social Media";
 
-  if (productiveTime === minTime) leastTimeDisplay.textContent = "Productivity";
-  else if (studyTime === minTime) leastTimeDisplay.textContent = "Study";
-  else if (workTime === minTime) leastTimeDisplay.textContent = "Work";
-  else if (entertainmentTime === minTime)
-    leastTimeDisplay.textContent = "Entertainment";
-  else if (restTime === minTime) leastTimeDisplay.textContent = "Rest";
-  else if (socialTime === minTime)
-    leastTimeDisplay.textContent = "Social Media";
+    if (productiveTime === minTime)
+      leastTimeDisplay.textContent = "Productivity";
+    else if (studyTime === minTime) leastTimeDisplay.textContent = "Study";
+    else if (workTime === minTime) leastTimeDisplay.textContent = "Work";
+    else if (entertainmentTime === minTime)
+      leastTimeDisplay.textContent = "Entertainment";
+    else if (restTime === minTime) leastTimeDisplay.textContent = "Rest";
+    else if (socialTime === minTime)
+      leastTimeDisplay.textContent = "Social Media";
+  } else {
+    topTimeDisplay.textContent = "None";
+    leastTimeDisplay.textContent = "None";
+  }
 }
 summarizeTime(newDaySummarize());
 function sortSummaryByDate() {
@@ -419,7 +426,7 @@ summaryDateInput.addEventListener("change", () => {
 });
 // Reset Everything function
 const resetBtn = document.querySelector(".resetApp");
-resetBtn.addEventListener("click", ()=> {
+resetBtn.addEventListener("click", () => {
   localStorage.clear();
   window.location.href = window.location.href;
 });
