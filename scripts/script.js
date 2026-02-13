@@ -8,7 +8,8 @@ const setGoal = () => localStorage.setItem("goal", userInfo.goal);
 const setAppState = () =>
   localStorage.setItem("appState", JSON.stringify(appState));
 function getNewDate() {
-  return new Date().toISOString().split("T")[0];
+  const date = new Date();
+  return date.toLocaleDateString("en-CA");
 }
 getNewDate();
 const newDate = getNewDate();
