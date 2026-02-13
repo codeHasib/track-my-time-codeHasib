@@ -97,11 +97,17 @@
     <main
       class="app bg-linear-to-b from-[#1CDCE8] to-[#BB77ED] min-h-screen py-10 px-7"
     >
+    <div class="absolute
+    top-29 right-5">
+      <button class="resetApp bg-red-400 py-2 px-5 rounded-2xl text-white font-extrabold">
+        Reset
+      </button>
+    </div>
       <!-- Add Activity Section -->
       <section>
         <div
           id="add-activity"
-          class="flex items-center justify-center gap-4 bg-[#BB77ED] py-6 px-3 rounded-3xl"
+          class="flex items-center justify-center gap-4 bg-[#BB77ED] py-6 px-3 rounded-3xl mt-7"
         >
           <h2 class="text-3xl font-extrabold">Add Activity</h2>
           <span
@@ -210,11 +216,12 @@
         >
           <div
             id="close-history"
-            class="h-10 w-10 rounded-[100vw] bg-[#F75672] absolute top-5 right-4 flex items-center justify-center"
+            class="h-7 w-7 rounded-[100vw] bg-[#F75672] absolute top-5 right-4 flex items-center justify-center"
           >
-            <i class="fa-solid fa-xmark text-2xl text-white"></i>
+            <i class="fa-solid fa-xmark text-[16px] text-white"></i>
           </div>
-          <div class="my-5 max-w-[200px] mx-auto">
+          <div class="mt-16 max-w-[200px] mx-auto flex flex-col justify-center items-center gap-2">
+            <label for="history-date" class="font-bold ">Sort activities by date:</label>
             <input
               type="date"
               id="history-date"
@@ -260,11 +267,12 @@
         <div id="summary-parent" class="rounded-3xl bg-amber-300 mt-2 relative">
           <div
             id="close-summary"
-            class="h-10 w-10 rounded-[100vw] bg-[#F75672] absolute top-5 right-4 flex items-center justify-center"
+            class="h-7 w-7 rounded-[100vw] bg-[#F75672] absolute top-5 right-4 flex items-center justify-center"
           >
-            <i class="fa-solid fa-xmark text-2xl text-white"></i>
+            <i class="fa-solid fa-xmark text-[16px] text-white"></i>
           </div>
-          <div class="mt-10 max-w-[200px] mx-auto">
+          <div class="mt-6 max-w-[200px] mx-auto flex flex-col justify-center items-center gap-2">
+            <label for="history-date" class="font-bold ">Sort summaries by date:</label>
             <input
               type="date"
               id="summary-date"

@@ -137,8 +137,8 @@ input {
   transition: 0.4s ease-in-out;
 }
 #summary-parent.open {
-  max-height: 1000px;
-  padding: 20px 15px;
+  max-height: 1500px;
+  padding: 50px 15px;
 }
 /* Hover Effects For All The Section Open Button */
 #add-activity,

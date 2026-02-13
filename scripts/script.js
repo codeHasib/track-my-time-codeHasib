@@ -8,7 +8,7 @@ const setGoal = () => localStorage.setItem("goal", userInfo.goal);
 const setAppState = () =>
   localStorage.setItem("appState", JSON.stringify(appState));
 function getNewDate() {
-  return new Date().toLocaleDateString().split("/").join("-");
+  return new Date().toISOString().split("T")[0];
 }
 getNewDate();
 const newDate = getNewDate();
@@ -87,6 +87,7 @@ function getActivityData() {
       activityObj.timeInMinutes = totalDurationMinutes;
       appState.push(activityObj);
       setAppState();
+      window.location.href = window.location.href;
     }
   } else {
     activityWarningMsg.style.display = "block";
@@ -111,6 +112,7 @@ addActivityCloseBtn.addEventListener("click", () => {
   addActivityCategory.value = "default";
   addActivityDurationHours.value = "";
   addActivityDurationMinutes.value = "";
+  window.location.href = window.location.href;
 });
 addActivitySubmitBtn.addEventListener("click", () => {
   getActivityData();
@@ -232,11 +234,9 @@ function sortHistory() {
   renderHistory(filteredArr);
 }
 function sortHistoryByDate() {
-  const dateInputValueArr = sortDateInput.value.split("-");
-  const formatInputValue = dateInputValueArr.reverse().join("-");
+  const formatInputValue = sortDateInput.value;
   const filteredArr = [];
-
-  if (formatInputValue.length > 0) {
+  if (formatInputValue) {
     appState.forEach((obj) => {
       if (obj.date === formatInputValue) filteredArr.push(obj);
     });
@@ -286,8 +286,10 @@ function renderSummaryHeaderUI(obj, arr) {
     let totalHours = Math.trunc(totalMinutes / 60);
     let minutes = totalMinutes % 60;
     summaryTotalTimeDisplay.textContent = `${totalHours}hrs ${minutes}mins`;
-  } else {
+  } else if (obj.goal) {
+    summaryGoalDisplay.textContent = obj.goal;
     summaryTotalTimeDisplay.textContent = "0hrs.";
+  } else {
     summaryGoalDisplay.textContent = "No goal";
   }
 }
@@ -397,14 +399,11 @@ function summarizeTime(arr) {
 }
 summarizeTime(newDaySummarize());
 function sortSummaryByDate() {
-  const dateInputValueArr = summaryDateInput.value.split("-");
-  const formatInputValue = dateInputValueArr.reverse().join("-");
   const filteredArr = [];
-
-  if (formatInputValue.length > 0) {
+  const selectedDate = summaryDateInput.value;
+  if (selectedDate) {
     appState.forEach((obj) => {
-      if (formatInputValue === obj.date) filteredArr.push(obj);
-      console.log(formatInputValue);
+      if (selectedDate === obj.date) filteredArr.push(obj);
     });
     renderSummaryAllCategoryTime(filteredArr);
     renderSummaryHeaderUI(userInfo, filteredArr);
@@ -417,4 +416,10 @@ function sortSummaryByDate() {
 }
 summaryDateInput.addEventListener("change", () => {
   sortSummaryByDate();
+});
+// Reset Everything function
+const resetBtn = document.querySelector(".resetApp");
+resetBtn.addEventListener("click", ()=> {
+  localStorage.clear();
+  window.location.href = window.location.href;
 });
